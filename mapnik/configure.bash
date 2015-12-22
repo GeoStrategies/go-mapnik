@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd `dirname $0`
+
 [ -f mapnik_c_api.cpp ] || curl -LO https://raw.githubusercontent.com/geostrategies/mapnik-c-api/copy-map/mapnik_c_api.cpp
 [ -f mapnik_c_api.h ] || curl -LO https://raw.githubusercontent.com/geostrategies/mapnik-c-api/copy-map/mapnik_c_api.h
 
@@ -10,10 +12,8 @@ package mapnik
 import "C"
 
 const (
-	fontPath = "$(mapnik-config --fonts)"
-	pluginPath = "$(mapnik-config --input-plugins)"
+  fontPath = "$(mapnik-config --fonts)"
+  pluginPath = "$(mapnik-config --input-plugins)"
 )
 
 EOF
-
-go install -x
