@@ -79,6 +79,10 @@ func (m *Map) Load(stylesheetFile string) error {
 	return nil
 }
 
+func (m *Map) Clone() *Map {
+	return &Map{C.mapnik_map_copy(m.m)}
+}
+
 // LoadString initializes the map not from a file but from a stylesheet
 // provided as a string.
 func (m *Map) LoadString(stylesheet string) error {
