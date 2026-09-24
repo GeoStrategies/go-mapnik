@@ -19,20 +19,26 @@ func Version() string {
 	return "Mapnik " + C.GoString(C.mapnik_version_string())
 }
 
-func RegisterDatasources(path string) {
+func RegisterDatasources(path string) error {
 	cs := C.CString(path)
 	defer C.free(unsafe.Pointer(cs))
-	err := C.CString(path)
-	defer C.free(unsafe.Pointer(err))
-	C.mapnik_register_datasources(cs, &err)
+	var err *C.char
+	if C.mapnik_register_datasources(cs, &err) != 0 {
+		defer C.free(unsafe.Pointer(err))
+		return errors.New("mapnik: " + C.GoString(err))
+	}
+	return nil
 }
 
-func RegisterFonts(path string) {
+func RegisterFonts(path string) error {
 	cs := C.CString(path)
 	defer C.free(unsafe.Pointer(cs))
-	err := C.CString(path)
-	defer C.free(unsafe.Pointer(err))
-	C.mapnik_register_fonts(cs, &err)
+	var err *C.char
+	if C.mapnik_register_fonts(cs, &err) != 0 {
+		defer C.free(unsafe.Pointer(err))
+		return errors.New("mapnik: " + C.GoString(err))
+	}
+	return nil
 }
 
 // Point in 2D space

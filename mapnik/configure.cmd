@@ -14,13 +14,6 @@ If NOT EXIST %MAPNIK_SDK_PATH%\bin\mapnik-config.bat (
     goto :eof
 )
 
-echo.
-echo.Downloading C API from github
-echo.
-
-if not exist mapnik_c_api.cpp curl -LO https://raw.github.com/fawick/mapnik-c-api/master/mapnik_c_api.cpp
-if not exist mapnik_c_api.h curl -LO https://raw.github.com/fawick/mapnik-c-api/master/mapnik_c_api.h
-
 If DEFINED ProgramFiles(x86) Set BUILDTOOLS32BIT=%ProgramFiles(x86)%
 If NOT DEFINED ProgramFiles(x86) Set BUILDTOOLS32BIT=%ProgramFiles%
 
@@ -83,7 +76,7 @@ echo.
 echo.Installing C API DLL to %MAPNIK_SDK_PATH%\lib
 echo.
 
-del mapnik_c_api.obj  mapnik_c_api.cpp  mapnik_c_api.lib  mapnik_c_api.exp
+del mapnik_c_api.obj  mapnik_c_api.lib  mapnik_c_api.exp
 move /y mapnik_c_api.dll %MAPNIK_SDK_PATH%\lib
 
 echo.
